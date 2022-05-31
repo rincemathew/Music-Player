@@ -6,7 +6,7 @@ const nextBtn = document.getElementById('next');
 
 const audio = document.getElementById('audio');
 const progress = document.getElementById('progress');
-const progressContainer = document.getElementById('progress-Container');
+const progressContainer = document.getElementById('progress-container');
 const title = document.getElementById('title');
 const cover = document.getElementById('cover');
 
@@ -71,7 +71,14 @@ function updateProgress(e) {
     // console.log(duration, currentTime);
     const progressPercentage = (currentTime / duration) * 100;
     progress.style.width = `${progressPercentage}%`;
+}
 
+//set progress bar
+function setProgress(e) {
+    const width = this.clientWidth;
+    const clickX = e.offsetX;
+    const duration = audio.duration;
+    audio.currentTime = (clickX / width) * duration;
 }
 
 //event listeners
@@ -91,3 +98,9 @@ nextBtn.addEventListener('click', nextSong);
 
 //Time/song update
 audio.addEventListener('timeupdate', updateProgress);
+
+//click on progress bar
+progressContainer.addEventListener('click', setProgress);
+
+//song ends
+audio.addEventListener('ended', nextSong);
